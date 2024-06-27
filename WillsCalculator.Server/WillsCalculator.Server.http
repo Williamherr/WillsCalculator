@@ -1,0 +1,6 @@
+@WillsCalculator.Server_HostAddress = http://localhost:5022
+
+GET {{WillsCalculator.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

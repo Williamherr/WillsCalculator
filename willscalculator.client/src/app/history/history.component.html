@@ -1,0 +1,23 @@
+﻿<!-- In history.component.html -->
+
+  <div class="card min-h-[200px] max-h-[556px] m-auto w-96 bg-neutral text-neutral-content">
+    <div class="card-body items-center">
+      <div *ngIf="username;else noUser">
+        <h1 class="card-title">History for {{ username }}</h1>
+        <div *ngIf="history.length; else noHistory">
+          <ul>
+            <li *ngFor="let entry of history">{{ entry }}</li>
+          </ul>
+        </div>
+        <ng-template #noHistory>
+          <p>No history found for this user.</p>
+        </ng-template>
+      </div>
+      <ng-template #noUser>
+        <h1 class="card-title">History</h1>
+        <p>No user entered</p>
+      </ng-template>
+    </div>
+</div>
+
+

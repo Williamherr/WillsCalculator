@@ -1,0 +1,125 @@
+﻿<!-- src/app/app.component.html -->
+
+<form #calcForm="ngForm" (ngSubmit)="doMath()">
+  <div class="card m-auto w-96 bg-neutral text-neutral-content">
+    <div class="card-body items-center text-center">
+ 
+        <h1 class="card-title">{{ title }}</h1>
+        <div class="absolute right-5 top-8">
+          <label class="swap swap-rotate hover:opacity-50">
+            <input type="checkbox"  (click)="triggerToggleHistory()"/>
+
+            <!-- left -->
+            <svg class="swap-on h-6 w-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z" /></svg>
+
+            <!-- right -->
+            <svg class="swap-off h-6 w-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+              <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
+            </svg>
+          </label>
+        </div>
+        
+    
+
+
+      <!-- Username -->
+      <div class="form-control w-full">
+        <label for="user" class="label">
+          <span class="label-text">Username</span>
+        </label>
+        <input id="user" type="text" class="input input-bordered  {{ userModel.invalid && (userModel.dirty || userModel.touched) ? 'border-red-500' : '' }}"
+               placeholder="Username" (blur)="user = userModel.value.trim()"
+               required [(ngModel)]="user" name="user" #userModel="ngModel"
+               (ngModelChange)="userHandler()" />
+        <div *ngIf="userModel.invalid && (userModel.dirty || userModel.touched)">
+          <div *ngIf="userModel.errors?.['required']">
+            <div class="label">
+              <span class="label-text-alt text-red-500">Please enter a name</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- First Number -->
+      <div class="form-control w-full">
+        <label for="firstNumber" class="label">
+          <span class="label-text">First Number</span>
+        </label>
+        <input id="firstNumber" type="number"
+               class="input input-bordered {{ firstNumberField.invalid && (firstNumberField.dirty || firstNumberField.touched) ? 'border-red-500' : '' }}"
+               required [(ngModel)]="firstNumber" name="firstNumber" #firstNumberField="ngModel"
+               [disabled]="!user || user.trim().length === 0"
+               [placeholder]="!user || user.trim().length === 0 ? 'Please enter a user first' : ''"
+               (ngModelChange)="firstNumberField.valid ? setFirstNumber() : null"
+               min="-1000" max="1000" />
+        <div *ngIf="firstNumberField.invalid && (firstNumberField.dirty || firstNumberField.touched)">
+          <!-- Display error message for required -->
+          <div *ngIf="firstNumberField.errors?.['required']">
+            <div class="label">
+              <span class="label-text-alt text-red-500">Please enter a number</span>
+            </div>
+          </div>
+          <!-- Display error message for min and max validation -->
+          <div *ngIf="firstNumberField.errors?.['min'] || firstNumberField.errors?.['max']">
+            <div class="label">
+              <span class="label-text-alt text-red-500">Number must be between 1 and 100</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Number -->
+      <div class="form-control w-full">
+        <label for="secondNumber" class="label">
+          <span class="label-text">Second Number</span>
+        </label>
+        <input id="secondNumber" type="number" class="input input-bordered {{ secondNumberField.invalid && (secondNumberField.dirty || secondNumberField.touched) ? 'border-red-500' : '' }}"
+               required [(ngModel)]="secondNumber" name="secondNumber" #secondNumberField="ngModel"
+               [disabled]="!user || user.trim().length === 0"
+               [placeholder]="!user || user.trim().length === 0 ? 'Please enter a user first' : ''"
+               (ngModelChange)="secondNumberField.valid ? setSecondNumber() : null"
+               min="-1000" max="1000" />
+
+        <div *ngIf="secondNumberField.invalid && (secondNumberField.dirty || secondNumberField.touched)">
+          <!-- Display error message for required -->
+          <div *ngIf="secondNumberField.errors?.['required']">
+            <div class="label">
+              <span class="label-text-alt text-red-500">Please enter a number</span>
+            </div>
+          </div>
+          <!-- Display error message for min and max validation -->
+          <div *ngIf="secondNumberField.errors?.['min'] || secondNumberField.errors?.['max']">
+            <div class="label">
+              <span class="label-text-alt text-red-500">Number must be between -1000 and 1000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Operations -->
+      <div class="form-group w-full">
+        <label for="operation" class="label">
+          <span class="label-text">Operation</span>
+        </label>
+        <div class="flex gap-2">
+          <select id="operation" class="select select-bordered w-full" [(ngModel)]="selectedOp" name="selectedOp">
+            <option *ngFor="let op of operations">{{ op }}</option>
+          </select>
+          <!-- Disable submit button if form is invalid -->
+          <button class="btn btn-primary" type="submit"
+                  [disabled]="!calcForm.form.valid || !operations.includes(selectedOp)">
+            Calculate Math
+          </button>
+        </div>
+      </div>
+
+      <!-- Clear Numbers Button -->
+      <button type="button" class="btn btn-accent mt-2 w-full" (click)="clearNumbers()">Clear Numbers</button>
+
+      <!-- Result Display -->
+      <div *ngIf="result !== null">
+        <h2>Result: {{ result }}</h2>
+      </div>
+    </div>
+  </div>
+</form>

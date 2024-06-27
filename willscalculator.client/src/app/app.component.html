@@ -1,0 +1,13 @@
+﻿<div class="toast toast-end" id="toast-container">
+
+</div>
+<div  class="mt-20 flex justify-center gap-4">
+  <app-calculator (toggleHistory)="toggleHistory()"
+                  (userChange)="updateUser($event)"
+                  (showToast)="showToast(message)">
+  </app-calculator>
+  <app-history *ngIf="showHistory"
+               [username]="currentUsername"
+               (showToast)="showToast($event)">
+  </app-history>
+</div>

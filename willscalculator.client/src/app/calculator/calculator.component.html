@@ -1,7 +1,7 @@
 ﻿<!-- src/app/app.component.html -->
 
 <form #calcForm="ngForm" (ngSubmit)="doMath()">
-  <div class="card m-auto w-96 bg-neutral text-neutral-content">
+  <div class="card !text-neutral-content m-auto w-96 bg-neutral">
     <div class="card-body items-center text-center">
  
         <h1 class="card-title">{{ title }}</h1>
@@ -25,7 +25,7 @@
       <!-- Username -->
       <div class="form-control w-full">
         <label for="user" class="label">
-          <span class="label-text">Username</span>
+          <span >Username</span>
         </label>
         <input id="user" type="text" class="input input-bordered  {{ userModel.invalid && (userModel.dirty || userModel.touched) ? 'border-red-500' : '' }}"
                placeholder="Username" (blur)="user = userModel.value.trim()"
@@ -43,7 +43,7 @@
       <!-- First Number -->
       <div class="form-control w-full">
         <label for="firstNumber" class="label">
-          <span class="label-text">First Number</span>
+          <span>First Number</span>
         </label>
         <input id="firstNumber" type="number"
                class="input input-bordered {{ firstNumberField.invalid && (firstNumberField.dirty || firstNumberField.touched) ? 'border-red-500' : '' }}"
@@ -71,7 +71,7 @@
       <!-- Second Number -->
       <div class="form-control w-full">
         <label for="secondNumber" class="label">
-          <span class="label-text">Second Number</span>
+          <span>Second Number</span>
         </label>
         <input id="secondNumber" type="number" class="input input-bordered {{ secondNumberField.invalid && (secondNumberField.dirty || secondNumberField.touched) ? 'border-red-500' : '' }}"
                required [(ngModel)]="secondNumber" name="secondNumber" #secondNumberField="ngModel"
@@ -99,7 +99,7 @@
       <!-- Operations -->
       <div class="form-group w-full">
         <label for="operation" class="label">
-          <span class="label-text">Operation</span>
+          <span>Operation</span>
         </label>
         <div class="flex gap-2">
           <select id="operation" class="select select-bordered w-full" [(ngModel)]="selectedOp" name="selectedOp">

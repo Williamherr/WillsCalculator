@@ -1437,13 +1437,6 @@ html {
   }
 }
 
-.label-text {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  --tw-text-opacity: 1;
-  color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity)));
-}
-
 .label-text-alt {
   font-size: 0.75rem;
   line-height: 1rem;
@@ -1902,6 +1895,11 @@ html {
   text-align: center;
 }
 
+.\!text-neutral-content {
+  --tw-text-opacity: 1 !important;
+  color: var(--fallback-nc,oklch(var(--nc)/var(--tw-text-opacity))) !important;
+}
+
 .text-neutral-content {
   --tw-text-opacity: 1;
   color: var(--fallback-nc,oklch(var(--nc)/var(--tw-text-opacity)));
@@ -1915,6 +1913,10 @@ html {
 .blur {
   --tw-blur: blur(8px);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+button, input, optgroup, select, textarea{
+  color: initial
 }
 
 .hover\:opacity-50:hover {
